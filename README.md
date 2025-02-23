@@ -20,7 +20,7 @@ Because I did not touch Visual Basic in quite some time, I got assistance from b
 |![image](https://github.com/user-attachments/assets/92cedcb2-5933-40b1-af84-b6d0c4ddfeca)|![image](https://github.com/user-attachments/assets/518c6c2e-cdcc-47cb-a0a5-3c400a7ec6d4)|![Screenshot 2025-02-23 004940](https://github.com/user-attachments/assets/7d0c7eb2-98e2-4b5e-80a6-dc31c3b129c7)
 
 
-The application will attempt to connect to a local MySQL database, using the DB name (MySQL_DB), user (MySQL_User) and password (MySQL_Pass) from the Windows environment variables. The application only needs a single table with an id (int), a 'name' (varchar(100)) and 'imageURL' (varchar(4096)).
+The application will attempt to connect to a local MySQL database, using the DB name (MySQL_DB), user (MySQL_User) and password (MySQL_Pass) from the Windows environment variables. The application only needs a single table named exactly like its DB with an id (int), a 'name' (varchar(100)) and 'imageURL' (varchar(4096)).
 
 When I tried the feching option, I already had a record in the table, so I don't know how the application might behave if it attempts to read an empty table. I guess it would just have an empty combo box and the 'Click me' and delete buttons would throw an error message if clicked.
 
