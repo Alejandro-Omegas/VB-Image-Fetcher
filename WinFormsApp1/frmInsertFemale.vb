@@ -3,15 +3,8 @@ Imports MySql.Data.MySqlClient
 Imports System.Threading.Tasks
 
 Public Class frmInsertFemale
-    'change these three values for your user, pass and DB name.
-    'if you add the environment variables with the project open, you might need to restart Visual Studio so it can fetch teh variables properly
-    Dim MySQL_User As String = Environment.GetEnvironmentVariable("MySQL_User")
-    Dim MySQL_Pass As String = Environment.GetEnvironmentVariable("MySQL_Pass")
-    Dim MySQL_DB As String = Environment.GetEnvironmentVariable("MySQL_DB")
-    Dim connectionString As String = "server=localhost;userid=" & MySQL_User & ";password=" & MySQL_Pass & ";database=" & MySQL_DB
-
+#Region "Events"
     Private Async Sub btnInsertFemale_Click(sender As Object, e As EventArgs) Handles btnInsertFemale.Click
-        btnInsertFemale.Enabled = False 'to avoid user clicking multiple times
 #Region "Guard conditionals"
         If txtName.Text = "" Then
             MessageBox.Show("Please enter a name")
@@ -36,29 +29,21 @@ Public Class frmInsertFemale
         End If
 #End Region
 
-        'If all checks are OK, we insert
-        Try
-            Dim query = "insert into " & MySQL_DB & " (name, imageURL) values (@name, @imageURL)"
-            Using conn As New MySqlConnection(Me.connectionString)
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@name", txtName.Text)
-                    cmd.Parameters.AddWithValue("@imageURL", txtImageURL.Text)
-                    conn.Open()
-                    cmd.ExecuteNonQuery()
-                    CleanFields()
-                    conn.Close()
-                    MessageBox.Show("Female inserted")
-                    frmFemales.LoadCbxFemales()
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Failed to insert row: " & ex.Message)
-            Return
-        End Try
+#Region "Insertion"
+        btnInsertFemale.Enabled = False 'to avoid user clicking multiple times
+
+        If FemaleDataProvider.InsertFemale(txtName.Text, txtImageURL.Text) Then
+            MessageBox.Show("Female inserted")
+            CleanFields()
+            frmFemales.LoadCbxFemales()
+        End If
 
         btnInsertFemale.Enabled = True
+#End Region
     End Sub
+#End Region
 
+#Region "Procedures & Functions"
     Private Async Function CheckImageURLIsImage(url As String) As Task(Of Boolean)
         Using client As New HttpClient()
             Try
@@ -83,4 +68,5 @@ Public Class frmInsertFemale
         txtName.Text = ""
         txtImageURL.Text = ""
     End Sub
+#End Region
 End Class
