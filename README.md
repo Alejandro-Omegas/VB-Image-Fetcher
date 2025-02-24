@@ -22,8 +22,6 @@ Because I did not touch Visual Basic in quite some time, I got assistance from b
 
 The application will attempt to connect to a local MySQL database, using the DB name (MySQL_DB), user (MySQL_User) and password (MySQL_Pass) from the Windows environment variables. The application only needs a single table named exactly like its DB with an id (int), a 'name' (varchar(100)) and 'imageURL' (varchar(4096)).
 
-When I tried the feching option, I already had a record in the table, so I don't know how the application might behave if it attempts to read an empty table. I guess it would just have an empty combo box and the 'Click me' and delete buttons would throw an error message if clicked.
-
 ## Consideration
 
 The [MySQL connector](https://dev.mysql.com/downloads/connector/net/) might be required to be installed and referenced in the project for this solution to work (I used version 9.2.0). You can reference it in Visual Studio in the Solution Explorer window -> righ-click on 'Dependencies' -> 'Add Project Reference...' -> 'Browse...' -> search and select `MySql.Data.dll` (in my case it was installed at `\Program Files (x86)\MySQL\MySQL Connector NET 9.2\`.) Alternatively, it seems you can use the NuGet Package Manager (also on the alt-menu of 'Dependencies') and search for 'mysql connector'.
